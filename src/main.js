@@ -44,6 +44,16 @@ formEL.addEventListener('submit', async e => {
     e.preventDefault();
     userImg = inputEl.value.trim();
     showLoader();
+    if (userImg === '') {
+        ulElem.innerHTML = '';
+        iziToast.error({
+            title: '',
+            message: 'Enter query to see rezults!',
+            position: 'topRight',            
+        })
+        hideLoader();
+        return;
+    }
     try {
         const { hits, totalHits } = await getImage(userImg, currentPage);
         maxPage = Math.ceil(totalHits / perPage);
